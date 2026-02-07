@@ -239,7 +239,7 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 <section id="rsvp" class="section bg-white text-center reveal">
 <h2 class="text-3xl mb-6 text-[#6b8f71]">RSVP</h2>
 <img src="./style/component_image/flowers.png" class="w-small max-w-2xl mx-auto mb-10"/>
-<form action="https://script.google.com/macros/s/AKfycbzp_4PO8EzYoF8epyAlx7aZyX0e5jHSrOFpJDkfXm1xVAWOg9DaY1-BUSv1lp3LVwyZ/exec" method="POST" class="max-w-md mx-auto space-y-4">
+<form id="inviteForm"  class="max-w-md mx-auto space-y-4">
 <input name="name"  id="nameInput" placeholder="Your Name" class="w-full border p-3 rounded" readonly="">
 <select name="attendance" class="w-full border p-3 rounded">
 <option value="" disabled selected>Will you attend?</option>  
@@ -277,6 +277,25 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 
   // Set heading
   document.getElementById('inviteHeader').textContent = `You're Invited, ${name}`;
+
+   form.addEventListener('submit', function(e) {
+    e.preventDefault(); // prevent default form submit
+
+    const data = new FormData(form);
+
+    // POST to Google Apps Script
+    fetch('https://script.google.com/macros/s/AKfycbyQZ_d0U-gILc1gonr3n134W9WyyfqmsVW2ehD8pK4LQKgt2JGTsYOu9Z1jzMHVuhwp/exec', {
+      method: 'POST',
+      body: data
+    })
+    .then(response => response.text())
+    .then(result => {
+      console.log(result); // "Success"
+      // Redirect after successful submission
+      window.location.href = 'https://wizkamico.github.io/gerald-abby/';
+    })
+    .catch(err => console.error('Error:', err));
+  });
 </script>
 
 
