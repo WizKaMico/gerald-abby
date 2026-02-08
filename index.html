@@ -477,6 +477,13 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 
 
 
+<!-- ATTIRE GUIDE -->
+<section id="#" class="section bg-[#f0f7f2] reveal">
+  <img src="./style/component_image/flowers.png" class="w-small max-w-2xl mx-auto mb-6"/>
+  <h2 class="text-3xl mb-1 text-center text-[#6b8f71]">See you at the Aisle!!</h2>
+</section>
+
+
 
 <!-- MUSIC -->
 <audio autoplay loop>
@@ -506,25 +513,28 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
   // Set heading
   document.getElementById('inviteHeader').textContent = `You're Invited, ${name}`;
 
-   form.addEventListener('submit', function(e) {
-    e.preventDefault(); // prevent default form submit
-
-    const data = new FormData(form);
-
-    // POST to Google Apps Script
-    fetch('https://script.google.com/macros/s/AKfycbyuYTW7MUFxZgu2hd171PKz_dTvcFlYOVvlGvk7JYUXMKxKdEnjFkw_tVPK6lO0SuWm/exec', {
-      method: 'POST',
-      body: data
-    })
-    .then(response => response.text())
-    .then(result => {
-      console.log(result); // "Success"
-      // Redirect after successful submission
-      window.location.href = 'https://wizkamico.github.io/gerald-abby/';
-    })
-    .catch(err => console.error('Error:', err));
-  });
 </script>
+
+<script>
+document.getElementById("inviteForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // VERY IMPORTANT — stop page reload
+
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch('https://script.google.com/macros/s/AKfycbyuYTW7MUFxZgu2hd171PKz_dTvcFlYOVvlGvk7JYUXMKxKdEnjFkw_tVPK6lO0SuWm/exec', {
+    method: 'POST',
+    body: data,
+    mode: 'no-cors' // prevents CORS blocking
+  })
+  .then(() => {
+    // Redirect after submit
+    window.location.href = 'https://wizkamico.github.io/gerald-abby/';
+  })
+  .catch(err => console.error('Error:', err));
+});
+</script>
+
 
 
 <script>
