@@ -492,46 +492,47 @@ h1,h2,h3 { font-family: 'Playfair Display', serif; }
 
 
 <script>
-  // Get the query string from the URL
+document.addEventListener("DOMContentLoaded", function () {
+
+  // ===== GET NAME FROM URL =====
   const params = new URLSearchParams(window.location.search);
-
-  // Get the 'name' parameter
   let name = params.get('name') || '';
-
-  // Replace underscores with spaces
   name = name.replace(/_/g, ' ');
 
-  // Capitalize first letter of each word
   function ucwords(str) {
     return str.replace(/\b\w/g, char => char.toUpperCase());
   }
+
   name = ucwords(name.toLowerCase());
 
-  // Set input value
-  document.getElementById('nameInput').value = name;
+  // set input
+  const nameInput = document.getElementById('nameInput');
+  if (nameInput) nameInput.value = name;
 
-  // Set heading
-  document.getElementById('inviteHeader').textContent = `You're Invited, ${name}`;
+  // set heading
+  const inviteHeader = document.getElementById('inviteHeader');
+  if (inviteHeader) inviteHeader.textContent = `You're Invited, ${name}`;
 
-</script>
+  // ===== SUBMIT FORM =====
+  const form = document.getElementById("inviteForm");
 
-<script>
-document.getElementById("inviteForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // VERY IMPORTANT — stop page reload
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
 
-  const form = e.target;
-  const data = new FormData(form);
+    const data = new FormData(form);
 
-  fetch('https://script.google.com/macros/s/AKfycbyuYTW7MUFxZgu2hd171PKz_dTvcFlYOVvlGvk7JYUXMKxKdEnjFkw_tVPK6lO0SuWm/exec', {
-    method: 'POST',
-    body: data,
-    mode: 'no-cors' // prevents CORS blocking
-  })
-  .then(() => {
-    // Redirect after submit
-    window.location.href = 'https://wizkamico.github.io/gerald-abby/';
-  })
-  .catch(err => console.error('Error:', err));
+    fetch('https://script.google.com/macros/s/AKfycbyuYTW7MUFxZgu2hd171PKz_dTvcFlYOVvlGvk7JYUXMKxKdEnjFkw_tVPK6lO0SuWm/exec', {
+      method: 'POST',
+      body: data,
+      mode: 'no-cors'
+    })
+    .then(() => {
+      alert("RSVP submitted 💚");
+      window.location.href = 'https://wizkamico.github.io/gerald-abby/';
+    })
+    .catch(err => console.error('Error:', err));
+  });
+
 });
 </script>
 
